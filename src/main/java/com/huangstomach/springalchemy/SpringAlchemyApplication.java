@@ -2,20 +2,29 @@ package com.huangstomach.springalchemy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.huangstomach.springalchemy.storage.StorageProperties;
 
 @SpringBootApplication
-@RestController
+@EnableConfigurationProperties(StorageProperties.class)
 public class SpringAlchemyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringAlchemyApplication.class, args);
 	}
 
-	@GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-      return String.format("Hello %s!", name);
-    }
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		// 全局CORS配置
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/user").allowedOrigins("http://localhost:8080");
+			}
+		};
+	}
 }
