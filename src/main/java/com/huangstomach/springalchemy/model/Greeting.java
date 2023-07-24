@@ -1,4 +1,4 @@
-package com.huangstomach.springalchemy;
+package com.huangstomach.springalchemy.model;
 
 public record Greeting(long id, String name) {
     
