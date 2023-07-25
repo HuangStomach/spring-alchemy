@@ -1,6 +1,9 @@
 package com.huangstomach.springalchemy;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.function.ServerResponse;
 
+import com.huangstomach.springalchemy.orm.Book;
 import com.huangstomach.springalchemy.orm.User;
 import com.huangstomach.springalchemy.orm.UserRepository;
 
@@ -23,6 +29,7 @@ public class UserController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public String post(@RequestParam String name, @RequestParam String email) {
+        // Book book = new Book("一人一本书");
         User user = new User();
         user.setName(name);
         user.setEmail(email);
@@ -31,10 +38,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User get(@PathVariable int id) {
-        User user = userRepository.findById(id);
-        // if (user.getId() <= 0) return HttpStatus.NOT_FOUND;
-         
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public User get(@PathVariable int id, @Value("${custom.player.name}") String name) {
+        Optional<User> res = userRepository.findById(id);
+        if (!res.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "My error message");
+        User user = res.get();
+        user.setName(name);
         return user;
     }
 
@@ -44,8 +53,11 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public String delete(@PathVariable int id) {
-        return "123";
+    public ServerResponse delete(@PathVariable int id) {
+        Optional<User> res = userRepository.findById(id);
+        if (!res.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "My error message");
+        User user = res.get();
+        userRepository.delete(user);
+        return ServerResponse.ok().build();
     }
 }

@@ -1,5 +1,6 @@
 ### local
 .DS_Store
+spring-shell.log
 upload-dir
 
 HELP.md

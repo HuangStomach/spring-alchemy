@@ -1,5 +1,8 @@
 package com.huangstomach.springalchemy.orm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +15,7 @@ public class User {
     private Integer id;
     private String name;
     private String email;
+    private List<Book> books = new ArrayList<>();
 
     public User() {
     }
@@ -23,10 +27,6 @@ public class User {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -43,5 +43,9 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Book> getBooks() {
+        return books;
     }
 }
