@@ -9,4 +9,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<User, Integer> {
     List<User> findByName(String name);
     Page<User> findAll(Pageable pageable);
+    void deleteById(Integer id);
 }

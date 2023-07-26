@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.function.ServerResponse;
 
 // import com.huangstomach.springalchemy.orm.Book;
 import com.huangstomach.springalchemy.orm.User;
@@ -53,12 +52,23 @@ public class UserController {
         return userRepository.findAll(page).getContent();
     }
 
-    @DeleteMapping("/{id}")
-    public ServerResponse delete(@PathVariable int id) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<User> patch(@PathVariable int id, @RequestBody User body) {
         Optional<User> res = userRepository.findById(id);
-        if (!res.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "My error message");
+        if (!res.isPresent()) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         User user = res.get();
-        userRepository.delete(user);
-        return ServerResponse.ok().build();
+        if (body.getName() != null) user.setName(body.getName());
+        if (body.getEmail() != null) user.setEmail(body.getEmail());
+        
+        return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable int id) {
+        Optional<User> res = userRepository.findById(id);
+        if (!res.isPresent()) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        User user = res.get();
+        userRepository.deleteById(user.getId());
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }
