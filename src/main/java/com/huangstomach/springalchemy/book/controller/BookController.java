@@ -1,6 +1,5 @@
 package com.huangstomach.springalchemy.book.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -47,8 +46,8 @@ public class BookController {
         @RequestParam(defaultValue = "0") int page, 
         @RequestParam(defaultValue = "0") int size
         ) {
-        // PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
-        return bookRepository.findAll();
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        return bookRepository.findBy(pageRequest);
     }
 
     @GetMapping("/{id}")
