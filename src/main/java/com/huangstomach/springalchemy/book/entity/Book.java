@@ -1,4 +1,4 @@
-package com.huangstomach.springalchemy.orm;
+package com.huangstomach.springalchemy.book.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

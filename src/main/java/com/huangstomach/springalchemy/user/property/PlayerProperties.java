@@ -1,4 +1,4 @@
-package com.huangstomach.springalchemy.property;
+package com.huangstomach.springalchemy.user.property;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

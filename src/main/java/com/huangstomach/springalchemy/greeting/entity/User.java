@@ -1,4 +1,4 @@
-package com.huangstomach.springalchemy.model;
+package com.huangstomach.springalchemy.greeting.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

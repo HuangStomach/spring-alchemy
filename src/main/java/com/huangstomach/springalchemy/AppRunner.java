@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.huangstomach.springalchemy.model.User;
+import com.huangstomach.springalchemy.greeting.entity.User;
 import com.huangstomach.springalchemy.service.GitHubLookupService;
 
 @Component

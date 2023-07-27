@@ -7,9 +7,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.concurrent.CompletableFuture;
+import com.huangstomach.springalchemy.greeting.entity.User;
 
-import com.huangstomach.springalchemy.model.User;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class GitHubLookupService {

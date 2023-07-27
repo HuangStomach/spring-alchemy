@@ -1,4 +1,4 @@
-package com.huangstomach.springalchemy;
+package com.huangstomach.springalchemy.greeting.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.huangstomach.springalchemy.model.Greeting;
+import com.huangstomach.springalchemy.greeting.entity.Greeting;
 
 @RestController
 public class GreetingController {

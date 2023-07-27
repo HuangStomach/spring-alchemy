@@ -1,4 +1,4 @@
-package com.huangstomach.springalchemy;
+package com.huangstomach.springalchemy.user.controller;
 
 import java.util.Optional;
 
@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,9 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-// import com.huangstomach.springalchemy.orm.Book;
-import com.huangstomach.springalchemy.orm.User;
-import com.huangstomach.springalchemy.orm.UserRepository;
+import com.huangstomach.springalchemy.user.entity.User;
+import com.huangstomach.springalchemy.user.repository.UserRepository;
 
 @RestController
 @RequestMapping(path="/user")
@@ -38,6 +38,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
+    @CrossOrigin(origins = "*")
     public ResponseEntity<User> get(@PathVariable int id, @Value("${custom.player.name}") String name) {
         Optional<User> res = userRepository.findById(id);
         if (!res.isPresent()) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -47,9 +48,12 @@ public class UserController {
     }
 
     @GetMapping()
-    public Iterable<User> list() {
-        PageRequest page = PageRequest.of(0, 10, Sort.by("id").descending());
-        return userRepository.findAll(page).getContent();
+    public Iterable<User> list(
+        @RequestParam(defaultValue = "0") int page, 
+        @RequestParam(defaultValue = "0") int size
+        ) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        return userRepository.findAll(pageRequest).getContent();
     }
 
     @PatchMapping("/{id}")

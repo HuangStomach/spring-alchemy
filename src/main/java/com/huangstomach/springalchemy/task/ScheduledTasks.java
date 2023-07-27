@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.huangstomach.springalchemy.property.PlayerProperties;
+import com.huangstomach.springalchemy.user.property.PlayerProperties;
 
 @Component
 @EnableConfigurationProperties(PlayerProperties.class)
