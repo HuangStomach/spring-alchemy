@@ -2,8 +2,10 @@ package com.huangstomach.springalchemy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 // import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -18,6 +20,7 @@ import com.huangstomach.springalchemy.storage.StorageProperties;
 @EnableConfigurationProperties(StorageProperties.class)
 @EnableScheduling
 @EnableAsync
+@Import(DataSourceAutoConfiguration.class)
 public class SpringAlchemyApplication {
 
     public static void main(String[] args) {

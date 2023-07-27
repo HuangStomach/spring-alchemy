@@ -26,8 +26,11 @@ import com.huangstomach.springalchemy.user.repository.UserRepository;
 @RestController
 @RequestMapping(path="/user")
 public class UserController {
-    @Autowired
     private UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)

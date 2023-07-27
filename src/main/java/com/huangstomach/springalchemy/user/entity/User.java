@@ -1,15 +1,9 @@
 package com.huangstomach.springalchemy.user.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.huangstomach.springalchemy.book.entity.Book;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -18,8 +12,8 @@ public class User {
     private Integer id;
     private String name;
     private String email;
-    @OneToMany
-    private List<Book> books = new ArrayList<>();
+    // @OneToMany
+    // private List<Book> books = new ArrayList<>();
 
     public User() {
     }
@@ -49,7 +43,7 @@ public class User {
         this.email = email;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
+    // public List<Book> getBooks() {
+    //     return books;
+    // }
 }

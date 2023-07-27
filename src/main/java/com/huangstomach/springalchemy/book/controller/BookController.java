@@ -24,8 +24,11 @@ import com.huangstomach.springalchemy.book.entity.Book;
 @RestController
 @RequestMapping(path="/book")
 public class BookController {
-    @Autowired
     private BookRepository bookRepository;
+
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
@@ -40,12 +43,12 @@ public class BookController {
     }
 
     @GetMapping()
-    public Iterable<Book> list(
+    public Flux<Book> list(
         @RequestParam(defaultValue = "0") int page, 
         @RequestParam(defaultValue = "0") int size
         ) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
-        return bookRepository.findAll(pageRequest).getContent();
+        // PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        return bookRepository.findAll();
     }
 
     @GetMapping("/{id}")
