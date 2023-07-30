@@ -15,7 +15,6 @@ import com.huangstomach.springalchemy.storage.StorageService;
 public class FileController {
     private final StorageService storageService;
 
-    @Autowired
     public FileController(StorageService storageService) {
 		this.storageService = storageService;
 	}

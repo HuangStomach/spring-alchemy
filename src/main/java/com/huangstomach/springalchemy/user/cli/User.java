@@ -12,10 +12,13 @@ import com.huangstomach.springalchemy.user.repository.UserRepository;
 @ShellComponent
 @ShellCommandGroup("user")
 public class User {
-    @Autowired
     Terminal terminal;
-    @Autowired
     UserRepository userRepository;
+
+    public User(Terminal terminal, UserRepository userRepository) {
+        this.terminal = terminal;
+        this.userRepository = userRepository;
+    }
 
     @ShellMethod(key = "user list", value = "列出所有用户")
     public void list() {
