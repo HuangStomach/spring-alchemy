@@ -10,4 +10,4 @@ services:
     volumes:
       - ../spring-alchemy:/data/spring-alchemy
     tty: true 
-    restart: always
+    # restart: always
